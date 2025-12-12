@@ -20,7 +20,7 @@ export const generateMonthlyReview = async (
   
   // 1. Preparar datos resumen para el prompt
   const completedTasks = tasks.filter(t => t.status === 'Completed').map(t => t.title).join(', ');
-  const delayedTasks = tasks.filter(t => t.status === 'Delayed').map(t => t.title).join(', ');
+  const delayedTasks = tasks.filter(t => t.status !== 'Completed' && new Date(t.endDate) < new Date()).map(t => t.title).join(', ');
   const activeRisks = risks.filter(r => r.status === 'Open' || r.status === 'In Progress').map(r => r.description).join(', ');
   
   const projectSummaries = projects.map(p => 

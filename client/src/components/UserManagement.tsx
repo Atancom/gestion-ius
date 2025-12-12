@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { User, WorkLine } from '../types';
-import { Plus, Search, User as UserIcon, Shield, Mail, Edit2, Trash2, X } from 'lucide-react';
+import { Plus, Search, User as UserIcon, Shield, Mail, Edit2, Trash2, X, ShieldCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface UserManagementProps {
@@ -59,25 +59,15 @@ export const UserManagement: React.FC<UserManagementProps> = ({ users, lines, on
     <div className="space-y-8 animate-in fade-in duration-500">
       
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border pb-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight text-foreground">Gestión de Usuarios</h2>
-          <p className="text-muted-foreground mt-1">Administra el acceso y roles del personal.</p>
+          <h2 className="text-3xl font-bold tracking-tight text-foreground">Configuración</h2>
+          <p className="text-muted-foreground mt-1">Gestión de usuarios y permisos de acceso.</p>
         </div>
         <div className="flex gap-3">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <input 
-              type="text" 
-              placeholder="Buscar usuario..." 
-              className="pl-10 pr-4 py-2 bg-card border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none w-full md:w-64 transition-all"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
           <button 
             onClick={() => handleOpenModal()}
-            className="flex items-center gap-2 bg-primary text-primary-foreground px-4 py-2 rounded-xl font-medium shadow-lg shadow-primary/25 hover:bg-primary/90 transition-all"
+            className="flex items-center gap-2 bg-slate-800 text-white px-6 py-2.5 rounded-lg font-medium shadow-lg hover:bg-slate-700 transition-all"
           >
             <Plus className="h-4 w-4" />
             Nuevo Usuario
@@ -85,111 +75,117 @@ export const UserManagement: React.FC<UserManagementProps> = ({ users, lines, on
         </div>
       </div>
 
-      {/* Users Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredUsers.map(user => (
-          <div key={user.id} className="glass-panel rounded-2xl p-6 hover:shadow-xl transition-all duration-300 group flex flex-col relative overflow-hidden">
-            
-            {/* Role Badge */}
-            <div className="absolute top-0 right-0 p-4">
-                <span className={cn(
-                    "px-3 py-1 rounded-full text-xs font-bold border",
-                    user.role === 'ADMIN' 
-                        ? "bg-purple-500/10 text-purple-600 border-purple-500/20" 
-                        : "bg-blue-500/10 text-blue-600 border-blue-500/20"
-                )}>
-                    {user.role}
-                </span>
-            </div>
+      {/* Users Table */}
+      <div className="bg-card border border-border rounded-xl overflow-hidden shadow-sm">
+        
+        {/* Table Header */}
+        <div className="grid grid-cols-12 gap-4 px-6 py-4 bg-muted/30 border-b border-border text-xs font-bold text-muted-foreground uppercase tracking-wider">
+            <div className="col-span-4">Usuario</div>
+            <div className="col-span-3">Rol</div>
+            <div className="col-span-3">Línea Asignada</div>
+            <div className="col-span-2 text-right">Acciones</div>
+        </div>
 
-            {/* Avatar & Info */}
-            <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-muted to-accent flex items-center justify-center text-2xl font-bold text-muted-foreground shadow-inner">
-                    {user.name.charAt(0).toUpperCase()}
-                </div>
-                <div>
-                    <h3 className="font-bold text-lg text-foreground">{user.name}</h3>
-                    <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <Mail className="h-3.5 w-3.5" />
-                        {user.email}
+        {/* Table Body */}
+        <div className="divide-y divide-border/50">
+            {filteredUsers.map(user => (
+                <div key={user.id} className="grid grid-cols-12 gap-4 px-6 py-4 items-center hover:bg-accent/30 transition-colors group">
+                    
+                    {/* Column 1: User Info */}
+                    <div className="col-span-4 flex items-center gap-4">
+                        <div className="h-10 w-10 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold text-sm">
+                            {user.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="min-w-0">
+                            <div className="font-bold text-foreground truncate">{user.name}</div>
+                            <div className="text-sm text-muted-foreground truncate">{user.email}</div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            {/* Details */}
-            <div className="space-y-3 mb-6 flex-1">
-                <div className="p-3 rounded-xl bg-muted/30 border border-border/50">
-                    <p className="text-xs font-medium text-muted-foreground uppercase mb-1">Acceso Asignado</p>
-                    <p className="text-sm font-medium text-foreground flex items-center gap-2">
-                        <Shield className="h-4 w-4 text-primary" />
+                    {/* Column 2: Role */}
+                    <div className="col-span-3">
+                        <span className={cn(
+                            "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border",
+                            user.role === 'ADMIN' 
+                                ? "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700" 
+                                : "bg-slate-50 text-slate-600 border-slate-200 dark:bg-slate-900 dark:text-slate-400 dark:border-slate-800"
+                        )}>
+                            <ShieldCheck className="h-3 w-3" />
+                            {user.role === 'ADMIN' ? 'Administrador' : 'Usuario Estándar'}
+                        </span>
+                    </div>
+
+                    {/* Column 3: Assigned Line */}
+                    <div className="col-span-3 text-sm text-muted-foreground">
                         {user.role === 'ADMIN' 
-                            ? "Acceso Total (Global)" 
+                            ? "Acceso Total" 
                             : lines.find(l => l.id === user.assignedLineId)?.name || "Sin línea asignada"
                         }
-                    </p>
+                    </div>
+
+                    {/* Column 4: Actions */}
+                    <div className="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button 
+                            onClick={() => handleOpenModal(user)}
+                            className="p-2 hover:bg-accent text-muted-foreground hover:text-foreground rounded-lg transition-colors"
+                            title="Editar"
+                        >
+                            <Edit2 className="h-4 w-4" />
+                        </button>
+                        <button 
+                            onClick={() => onDeleteUser(user.id)}
+                            className="p-2 hover:bg-destructive/10 text-muted-foreground hover:text-destructive rounded-lg transition-colors"
+                            title="Eliminar"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </button>
+                    </div>
+
                 </div>
-            </div>
-
-            {/* Actions */}
-            <div className="flex gap-2 pt-4 border-t border-border">
-                <button 
-                    onClick={() => handleOpenModal(user)}
-                    className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-accent text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-                >
-                    <Edit2 className="h-4 w-4" /> Editar
-                </button>
-                <button 
-                    onClick={() => onDeleteUser(user.id)}
-                    className="flex-1 flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-destructive/10 text-sm font-medium text-muted-foreground hover:text-destructive transition-colors"
-                >
-                    <Trash2 className="h-4 w-4" /> Eliminar
-                </button>
-            </div>
-
-          </div>
-        ))}
+            ))}
+        </div>
       </div>
 
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-card border border-border shadow-2xl rounded-2xl w-full max-w-md p-6 animate-in fade-in zoom-in duration-200">
+          <div className="bg-card border border-border shadow-2xl rounded-xl w-full max-w-md p-6 animate-in fade-in zoom-in duration-200">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold">{editingUser ? 'Editar Usuario' : 'Nuevo Usuario'}</h2>
+              <h2 className="text-xl font-bold">{editingUser ? 'Editar Usuario' : 'Nuevo Usuario'}</h2>
               <button onClick={() => setIsModalOpen(false)} className="text-muted-foreground hover:text-foreground">
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5" />
               </button>
             </div>
             
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium mb-1">Nombre Completo</label>
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Nombre Completo</label>
                 <input
                   type="text"
                   required
-                  className="w-full px-4 py-2 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                  className="w-full px-4 py-2.5 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                   value={formData.name || ''}
                   onChange={e => setFormData({...formData, name: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Email</label>
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Email</label>
                 <input
                   type="email"
                   required
-                  className="w-full px-4 py-2 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                  className="w-full px-4 py-2.5 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                   value={formData.email || ''}
                   onChange={e => setFormData({...formData, email: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Contraseña</label>
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Contraseña</label>
                 <input
                   type="text"
                   required={!editingUser}
-                  className="w-full px-4 py-2 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                  className="w-full px-4 py-2.5 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                   value={formData.password || ''}
                   onChange={e => setFormData({...formData, password: e.target.value})}
                   placeholder={editingUser ? "Dejar en blanco para mantener actual" : ""}
@@ -197,9 +193,9 @@ export const UserManagement: React.FC<UserManagementProps> = ({ users, lines, on
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">Rol</label>
+                <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Rol</label>
                 <select
-                  className="w-full px-4 py-2 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                  className="w-full px-4 py-2.5 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                   value={formData.role}
                   onChange={e => setFormData({...formData, role: e.target.value as any})}
                 >
@@ -210,10 +206,10 @@ export const UserManagement: React.FC<UserManagementProps> = ({ users, lines, on
 
               {formData.role === 'USER' && (
                 <div>
-                    <label className="block text-sm font-medium mb-1">Línea Asignada</label>
+                    <label className="block text-xs font-bold text-muted-foreground uppercase tracking-wider mb-1.5">Línea Asignada</label>
                     <select
                         required
-                        className="w-full px-4 py-2 bg-background border border-input rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+                        className="w-full px-4 py-2.5 bg-background border border-input rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all"
                         value={formData.assignedLineId || ''}
                         onChange={e => setFormData({...formData, assignedLineId: e.target.value})}
                     >
@@ -225,7 +221,7 @@ export const UserManagement: React.FC<UserManagementProps> = ({ users, lines, on
                 </div>
               )}
 
-              <div className="flex justify-end gap-3 pt-4 border-t border-border mt-6">
+              <div className="flex justify-end gap-3 pt-6 border-t border-border mt-6">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
@@ -235,7 +231,7 @@ export const UserManagement: React.FC<UserManagementProps> = ({ users, lines, on
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-lg shadow-lg shadow-primary/25 hover:bg-primary/90 transition-all"
+                  className="px-6 py-2 text-sm font-bold text-white bg-slate-800 hover:bg-slate-700 rounded-lg shadow-lg transition-all"
                 >
                   {editingUser ? 'Guardar Cambios' : 'Crear Usuario'}
                 </button>

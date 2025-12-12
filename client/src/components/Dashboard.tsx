@@ -38,7 +38,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ projects, tasks, risks }) 
   const statusData = [
     { name: 'Completado', value: completedProjects, color: 'var(--color-emerald-500)' },
     { name: 'En Progreso', value: inProgressProjects, color: 'var(--color-blue-500)' },
-    { name: 'Retrasado', value: projects.filter(p => p.status === 'Delayed').length, color: 'var(--color-amber-500)' },
+
     { name: 'Por Iniciar', value: projects.filter(p => p.status === 'Ready to Start').length, color: 'var(--color-slate-400)' },
   ].filter(d => d.value > 0);
 
@@ -183,23 +183,22 @@ export const Dashboard: React.FC<DashboardProps> = ({ projects, tasks, risks }) 
       {/* Recent Activity / Critical Risks */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 glass-panel rounded-2xl p-6">
-            <h3 className="font-semibold text-lg mb-4">Proyectos Críticos (Retrasados)</h3>
+            <h3 className="font-semibold text-lg mb-4">Proyectos en Progreso</h3>
             <div className="space-y-4">
-                {projects.filter(p => p.status === 'Delayed').length === 0 ? (
+                {projects.filter(p => p.status === 'In Progress').length === 0 ? (
                     <div className="text-center py-8 text-muted-foreground">
-                        <CheckCircle2 className="h-12 w-12 mx-auto mb-3 text-emerald-500/50" />
-                        <p>Todo marcha según lo previsto. ¡Buen trabajo!</p>
+                        <p>No hay proyectos en curso actualmente.</p>
                     </div>
                 ) : (
-                    projects.filter(p => p.status === 'Delayed').map(p => (
-                        <div key={p.id} className="flex items-center justify-between p-4 rounded-xl bg-destructive/5 border border-destructive/20">
+                    projects.filter(p => p.status === 'In Progress').slice(0, 3).map(p => (
+                        <div key={p.id} className="flex items-center justify-between p-4 rounded-xl bg-blue-500/5 border border-blue-500/20">
                             <div>
                                 <h4 className="font-medium text-foreground">{p.name}</h4>
                                 <p className="text-sm text-muted-foreground">Responsable: {p.assignee}</p>
                             </div>
                             <div className="text-right">
-                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-destructive/10 text-destructive">
-                                    Retrasado
+                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-600">
+                                    En Progreso
                                 </span>
                                 <p className="text-xs text-muted-foreground mt-1">Progreso: {p.progress}%</p>
                             </div>

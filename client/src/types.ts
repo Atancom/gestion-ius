@@ -37,13 +37,14 @@ export interface Project {
   assignee: string;
   startDate: string;
   endDate: string;
-  status: 'Ready to Start' | 'In Progress' | 'Delayed' | 'Completed';
+  status: 'Ready to Start' | 'In Progress' | 'Completed';
   priority: 'Low' | 'Medium' | 'High';
   difficulty: 'Low' | 'Medium' | 'High';
   nextSteps: string[];
   notes: string;
   budget: number;
   progress: number;
+  isAutoProgress: boolean;
 }
 
 export interface ChecklistItem {
@@ -70,7 +71,7 @@ export interface Task {
   assignee: string;
   startDate: string;
   endDate: string;
-  status: 'Ready to Start' | 'In Progress' | 'Delayed' | 'Completed';
+  status: 'Ready to Start' | 'In Progress' | 'Completed';
   priority: 'Low' | 'Medium' | 'High';
   difficulty: 'Low' | 'Medium' | 'High';
   progress: number;

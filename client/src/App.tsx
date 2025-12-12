@@ -7,6 +7,8 @@ import { Tasks } from './components/Tasks';
 import { Risks } from './components/Risks';
 import { Timeline } from './components/Timeline';
 import { MonthlyReviewView } from './components/MonthlyReview';
+import { GlobalDashboard } from './components/GlobalDashboard';
+import { GlobalReview } from './components/GlobalReview';
 import { Login } from './components/Login';
 import { UserManagement } from './components/UserManagement';
 import { WorkLine, Project, Task, Risk, ViewState, User } from './types';
@@ -139,7 +141,7 @@ const App: React.FC = () => {
                                 ? (lines.find(l => l.id === selectedLineId)?.name) 
                                 : isGlobal 
                                     ? (currentView === ViewState.CONFIGURATION ? 'Configuración' : 'Visión General Administrador') 
-                                    : 'Gestión de Líneas Ius'}
+                                    : 'Gestión de Líneas IusTime'}
                          </h1>
                     </div>
                 </div>
@@ -173,6 +175,8 @@ const App: React.FC = () => {
                     {currentView === ViewState.TIMELINE && <Timeline tasks={filteredTasks} />}
                     {currentView === ViewState.RISKS && <Risks risks={filteredRisks} tasks={filteredTasks} lineId={activeLineId!} onAddRisk={(r) => setRisks([...risks, r])} onUpdateRisk={(r) => setRisks(risks.map(rk => rk.id === r.id ? r : rk))} onDeleteRisk={(id) => setRisks(risks.filter(r => r.id !== id))} />}
                     {currentView === ViewState.MONTHLY_REVIEW && <MonthlyReviewView lineId={activeLineId!} projects={filteredProjects} tasks={filteredTasks} risks={filteredRisks} />}
+                    {currentView === ViewState.GLOBAL_DASHBOARD && <GlobalDashboard lines={lines} projects={projects} tasks={tasks} risks={risks} />}
+                    {currentView === ViewState.GLOBAL_REVIEW && <GlobalReview lines={lines} projects={projects} tasks={tasks} risks={risks} />}
                     {currentView === ViewState.CONFIGURATION && <UserManagement users={users} lines={lines} onAddUser={(u) => setUsers([...users, u])} onUpdateUser={(u) => setUsers(users.map(us => us.id === u.id ? u : us))} onDeleteUser={(id) => setUsers(users.filter(u => u.id !== id))} />}
                 </div>
             </main>

@@ -39,8 +39,8 @@ export const Login: React.FC<LoginProps> = ({ users, onLogin }) => {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-purple-600 shadow-lg shadow-primary/30 mb-4">
                     <span className="text-3xl font-bold text-white">I</span>
                 </div>
-                <h1 className="text-3xl font-bold text-foreground tracking-tight">Bienvenido</h1>
-                <p className="text-muted-foreground mt-2">Inicia sesión en IusTime</p>
+                <h1 className="text-3xl font-bold text-foreground tracking-tight">Continuar en Gestión de Líneas IusTime</h1>
+                
             </div>
 
             {/* Form */}

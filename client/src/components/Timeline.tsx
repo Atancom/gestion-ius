@@ -56,7 +56,7 @@ export const Timeline: React.FC<TimelineProps> = ({ tasks }) => {
       switch (status) {
           case 'Completed': return 'bg-emerald-500 border-emerald-600';
           case 'In Progress': return 'bg-blue-500 border-blue-600';
-          case 'Delayed': return 'bg-red-500 border-red-600';
+          
           default: return 'bg-slate-400 border-slate-500';
       }
   };

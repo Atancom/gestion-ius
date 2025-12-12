@@ -1,0 +1,52 @@
+{
+  "project_info": {
+    "title": "IusTime - Transformación de la Gestión Estratégica",
+    "created": 1765570761.4637845,
+    "last_updated": 1765570761.463785,
+    "total_slides": 5
+  },
+  "slides": {
+    "slide_1": "edit_pending",
+    "slide_2": "edit_pending",
+    "slide_3": "edit_pending",
+    "slide_4": "edit_pending",
+    "slide_5": "edit_pending"
+  },
+  "outline": [
+    {
+      "id": "slide_1",
+      "title": "IusTime - Transformación de la Gestión Estratégica",
+      "summary": "Presentación de las nuevas herramientas de alta dirección: Dashboard Global y Revisión Global para una gestión holística.",
+      "image_plan": "/home/ubuntu/gestion-ius/dashboard_slide_bg.png - The slide is an introduction to a strategic management transformation using a global dashboard and AI. Image 9 is a professional, high-level dashboard visualization that represents the 'Visibilidad Global' and 'Inteligencia Artificial' mentioned.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_2",
+      "title": "Dashboard Global - Visión de Helicóptero en Tiempo Real",
+      "summary": "Control total mediante la centralización de datos, semáforos de salud y mapas de riesgos.",
+      "image_plan": "/home/ubuntu/upload/pasted_file_JxvPtu_image.png; /home/ubuntu/upload/pasted_file_Fc2OCz_image.png; /home/ubuntu/upload/pasted_file_SOZWiS_image.png; /home/ubuntu/upload/pasted_file_IoihKu_image.png - The slide describes the 'Dashboard Global' and its components (centralization, risks, tasks). Images 1, 2, 3, and 4 show the navigation menu, task creation, task list, and risk registration, which are all components of the system that feeds the dashboard.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_3",
+      "title": "Revisión Global - Inteligencia Artificial al Servicio de la Estrategia",
+      "summary": "Análisis profundo y generación automática de informes estratégicos con IA.",
+      "image_plan": "/home/ubuntu/upload/pasted_file_t2JciY_image.png; /home/ubuntu/upload/pasted_file_TWwLRb_image.png; /home/ubuntu/upload/pasted_file_eHysMU_image.png - The slide focuses on the 'Revisión Global' and the AI-assisted executive report generation. Images 5, 6, and 7 show the 'Revisión Mensual' interface, which includes the executive summary, logs, risks, and strategic next steps, directly illustrating the feature.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_4",
+      "title": "Beneficios Estratégicos para la Dirección",
+      "summary": "Alineación organizacional, agilidad en respuesta y transparencia radical como pilares del cambio.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_5",
+      "title": "Próximos Pasos e Implementación",
+      "summary": "Hoja de ruta para la adopción inmediata de las herramientas y feedback continuo.",
+      "image_plan": "/home/ubuntu/upload/pasted_file_VRbNLd_image.png - The slide is about implementation, adoption, and required actions for directors. Image 8 shows the 'Configuración' (Configuration) screen with user management and roles, which is relevant to the implementation and assigning access/responsibilities for the new tools.",
+      "slide_template_key": ""
+    }
+  ]
+}
